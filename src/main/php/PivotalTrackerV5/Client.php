@@ -81,7 +81,7 @@ class Client
     {
         return json_decode(
             $this->client->put(
-                "projects/{$this->project}/stories/$storyId",
+                "/projects/{$this->project}/stories/$storyId",
                 json_encode($story)
             )
         );
