@@ -70,13 +70,32 @@ class Client
     }
 
     /**
+     * Update a story on Pivotal Tracker and return the updated object
+     *
+     * @param integer $storyId The id of the story to update
+     * @param array $story The data to update the story with
+     *
+     * @return stdClass
+     */
+    public function updateStory($storyId, array $story)
+    {
+        return json_decode(
+            $this->client->put(
+                "projects/{$this->project}/stories/$storyId",
+                json_encode($story)
+            )
+        );
+    }
+
+    /**
      * Adds a comment to the story and returns the newly created comment object
      *
      * @param integer $storyId
      * @param array $commentParameters
      * @return stdClass
      */
-    public function addComment($storyId, array $commentParameters) {
+    public function addComment($storyId, array $commentParameters)
+    {
         return json_decode(
             $this->client->post(
                 "/projects/{$this->project}/stories/$storyId/comments",
