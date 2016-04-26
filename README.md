@@ -1,7 +1,7 @@
 pivotal-tracker-api
 ===================
 
-Library that provides a PHP interface to interact with the PivotalTracker API V5
+Library that provides a PHP interface to interact with the [PivotalTracker API V5](https://www.pivotaltracker.com/help/api/rest/v5)
 
 
 Example:
