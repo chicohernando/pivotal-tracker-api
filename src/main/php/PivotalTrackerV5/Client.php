@@ -70,6 +70,22 @@ class Client
     }
 
     /**
+     * Adds a comment to the story and returns the newly created comment object
+     *
+     * @param integer $storyId
+     * @param array $commentParameters
+     * @return stdClass
+     */
+    public function addComment($storyId, array $commentParameters) {
+        return json_decode(
+            $this->client->post(
+                "/projects/{$this->project}/stories/$storyId/comments",
+                json_encode($commentParameters)
+            )
+        );
+    }
+
+    /**
      * Adds a new task with <b>$description</b> to the story identified by the
      * given <b>$storyId</b>.
      *
