@@ -47,7 +47,6 @@ class Client
         $this->client->addHeader( 'X-TrackerToken',  $apiKey );
         $this->project = $project;
     }
-
  
     /**
      * Adds a new story to PivotalTracker and returns the newly created story
@@ -65,6 +64,23 @@ class Client
             $this->client->post(
                 "/projects/{$this->project}/stories",
                 json_encode( $story )
+            )
+        );
+    }
+    
+    /**
+     * Adds a new epic to PivotalTracker and returns the newly created epic
+     * object.
+     *
+     * @param array $epic
+     * @return object
+     */
+    public function addEpic( array $epic )
+    {
+        return json_decode(
+            $this->client->post(
+                "/projects/{$this->project}/epics",
+                json_encode( $epic )
             )
         );
     }
