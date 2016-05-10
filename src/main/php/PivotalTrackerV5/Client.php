@@ -59,7 +59,6 @@ class Client
      */
     public function addStory( array $story  )
     {
-      
         return json_decode(
             $this->client->post(
                 "/projects/{$this->project}/stories",
@@ -130,7 +129,7 @@ class Client
      */
     public function addTask( $storyId, $description )
     {
-        return simplexml_load_string(
+        return json_decode(
             $this->client->post(
                 "/projects/{$this->project}/stories/$storyId/tasks",
                 json_encode( array( 'description' => $description ) )
@@ -185,8 +184,5 @@ class Client
                 "/projects"
             )
         );
-
     }
-
-     
 }
