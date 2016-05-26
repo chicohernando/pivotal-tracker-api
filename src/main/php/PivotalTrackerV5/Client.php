@@ -48,7 +48,6 @@ class Client
         $this->project = $project;
     }
 
-
     /**
      * Adds a new story to PivotalTracker and returns the newly created story
      * object.
@@ -60,11 +59,27 @@ class Client
      */
     public function addStory( array $story  )
     {
-
         return json_decode(
             $this->client->post(
                 "/projects/{$this->project}/stories",
                 json_encode( $story )
+            )
+        );
+    }
+
+    /**
+     * Adds a new epic to PivotalTracker and returns the newly created epic
+     * object.
+     *
+     * @param array $epic
+     * @return object
+     */
+    public function addEpic( array $epic )
+    {
+        return json_decode(
+            $this->client->post(
+                "/projects/{$this->project}/epics",
+                json_encode( $epic )
             )
         );
     }
@@ -131,7 +146,7 @@ class Client
      */
     public function addTask( $storyId, $description )
     {
-        return simplexml_load_string(
+        return json_decode(
             $this->client->post(
                 "/projects/{$this->project}/stories/$storyId/tasks",
                 json_encode( array( 'description' => $description ) )
@@ -186,8 +201,6 @@ class Client
                 "/projects"
             )
         );
-
     }
-
-
 }
+
