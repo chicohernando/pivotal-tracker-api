@@ -36,7 +36,7 @@ class Client
      */
     private $client;
     /**
-     * 
+     *
      * @param string $apiKey  API Token provided by PivotalTracking
      * @param string $project Project ID
      */
@@ -47,7 +47,7 @@ class Client
         $this->client->addHeader( 'X-TrackerToken',  $apiKey );
         $this->project = $project;
     }
- 
+
     /**
      * Adds a new story to PivotalTracker and returns the newly created story
      * object.
@@ -66,7 +66,7 @@ class Client
             )
         );
     }
-    
+
     /**
      * Adds a new epic to PivotalTracker and returns the newly created epic
      * object.
@@ -103,6 +103,23 @@ class Client
     }
 
     /**
+     * Adds an owner to an existing Pivotal Tracker Story and returns that person
+     *
+     * @param int $storyId
+     * @param int $userId
+     * @return stdClass
+     */
+    public function addOwner ( $storyId, $userId )
+    {
+        return json_decode(
+            $this->client->post(
+                "/projects/{$this->project}/stories/$storyId/owners",
+                json_encode(array('id' => $userId))
+            )
+        );
+    }
+
+    /**
      * Adds a comment to the story and returns the newly created comment object
      *
      * @param integer $storyId
@@ -133,7 +150,7 @@ class Client
             $this->client->post(
                 "/projects/{$this->project}/stories/$storyId/tasks",
                 json_encode( array( 'description' => $description ) )
-                
+
             )
         );
     }
@@ -186,3 +203,4 @@ class Client
         );
     }
 }
+
