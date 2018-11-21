@@ -202,5 +202,13 @@ class Client
             )
         );
     }
-}
 
+    /**
+     * Returns a list of project members
+     *
+     * @return array
+     */
+    public function getMemberships() {
+        return json_decode($this->client->get("/projects/{$this->project}/memberships"));
+    }
+}
