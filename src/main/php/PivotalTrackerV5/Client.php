@@ -211,4 +211,34 @@ class Client
     public function getMemberships() {
         return json_decode($this->client->get("/projects/{$this->project}/memberships"));
     }
+    
+    /**
+     * Returns the velocity for the project
+     *
+     * @return int
+     */
+    public function getProjectVelocity() {
+        $response = json_decode($this->client->get("/projects/{$this->project}", array('fields' => 'current_velocity')));
+        return $response->current_velocity;
+    }
+
+    /**
+     * Performs a Pivotal Tracker search and returns the raw results
+     *
+     * @param string $query
+     * @return stdClass
+     */
+    public function search($query) {
+        return json_decode($this->client->get("/projects/{$this->project}/search", array('query' => $query)));
+    }
+
+    /**
+     * Returns the count of unscheduled stories
+     *
+     * @return int
+     */
+    public function getIceboxCount() {
+        $response = $this->search('state:unscheduled');
+        return $response->stories->total_hits;
+    }
 }
