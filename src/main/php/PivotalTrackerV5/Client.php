@@ -241,4 +241,15 @@ class Client
         $response = $this->search('state:unscheduled');
         return $response->stories->total_hits;
     }
+    
+    /**
+     * Returns the current iteration and the stories in the iteration
+     *
+     * return stdClass
+     */
+    public function getCurrentIteration() {
+        $response = json_decode($this->client->get("/projects/{$this->project}/iterations", array('scope' => 'current')));
+        //return first element of the array, which should be the only element of the array
+        return reset($response);
+    }
 }
