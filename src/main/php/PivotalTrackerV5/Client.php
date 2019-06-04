@@ -245,7 +245,7 @@ class Client
     /**
      * Returns the current iteration and the stories in the iteration
      *
-     * return stdClass
+     * @return stdClass
      */
     public function getCurrentIteration() {
         $response = json_decode($this->client->get("/projects/{$this->project}/iterations", array('scope' => 'current')));
