@@ -3,7 +3,7 @@
     "description":  "Library that provides a PHP interface to interact with the PivotalTracker API V5",
     "homepage":     "https://github.com/chicohernando/pivotal-tracker-api",
     "keywords":     ["pivotaltracker", "api", "v5"],
-    "license":      "LGPL",
+    "license":      "MIT",
     "type":         "library",
     "authors": [
         {
