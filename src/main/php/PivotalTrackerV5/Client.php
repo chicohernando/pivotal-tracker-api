@@ -211,7 +211,7 @@ class Client
     public function getMemberships() {
         return json_decode($this->client->get("/projects/{$this->project}/memberships"));
     }
-    
+
     /**
      * Returns the velocity for the project
      *
@@ -241,7 +241,7 @@ class Client
         $response = $this->search('state:unscheduled');
         return $response->stories->total_hits;
     }
-    
+
     /**
      * Returns the current iteration and the stories in the iteration
      *
@@ -251,5 +251,27 @@ class Client
         $response = json_decode($this->client->get("/projects/{$this->project}/iterations", array('scope' => 'current')));
         //return first element of the array, which should be the only element of the array
         return reset($response);
+    }
+
+    /**
+     * Returns a list of iterations for the project
+     *
+     * @param array $parameters
+     * @return array
+     */
+    public function getProjectIterations($parameters = array()) {
+        $default_parameters = array(
+             // https://www.pivotaltracker.com/help/api/rest/v5#Iterations for parameter descriptions
+            'scope' => 'done',
+            'offset' => null,
+            'limit' => 10,
+            'label' => null,
+             // https://www.pivotaltracker.com/help/api/rest/v5#iteration_resource for list of possible fields
+            'fields' => null
+        );
+
+        $parameters = array_merge($default_parameters, $parameters);
+
+        return json_decode($this->client->get("/projects/{$this->project}/iterations", $parameters));
     }
 }
