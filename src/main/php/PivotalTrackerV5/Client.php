@@ -274,4 +274,22 @@ class Client
 
         return json_decode($this->client->get("/projects/{$this->project}/iterations", $parameters));
     }
+
+    /**
+     * Returns information about the iteration for the iteration_id passed in
+     *
+     * @param int $iteration_id
+     * @param array $parameters
+     * @return stdClass
+     */
+    public function getIteration($iteration_id, $parameters = array()) {
+        $default_parameters = array(
+             // https://www.pivotaltracker.com/help/api/rest/v5#Iterations for parameter descriptions
+            'label' => null,
+             // https://www.pivotaltracker.com/help/api/rest/v5#iteration_resource for list of possible fields
+            'fields' => null
+        );
+
+        return json_decode($this->client->get("/projects/{$this->project}/iterations/{$iteration_id}", $parameters));
+    }
 }
