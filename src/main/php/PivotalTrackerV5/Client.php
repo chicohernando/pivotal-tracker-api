@@ -329,8 +329,6 @@ class Client
     public function getPersonNotificationsSince($person_id, $since, $parameters = array()) {
         $default_parameters = array(
              // https://www.pivotaltracker.com/help/api/rest/v5#Notifications for parameter descriptions
-            'created_after' => null,
-            'updated_after' => null,
             'notification_types' => null,
             'limit' => 1000,
             'format' => 'millis',
