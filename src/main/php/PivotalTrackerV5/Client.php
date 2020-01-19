@@ -292,4 +292,52 @@ class Client
 
         return json_decode($this->client->get("/projects/{$this->project}/iterations/{$iteration_id}", $parameters));
     }
+
+
+
+    /**
+     * Returns notifications for the current account
+     *
+     * @param array $parameters
+     * @return stdClass
+     */
+    public function getMyNotifications($parameters = array()) {
+        $default_parameters = array(
+             // https://www.pivotaltracker.com/help/api/rest/v5#Notifications for parameter descriptions
+            'created_after' => null,
+            'updated_after' => null,
+            'notification_types' => null,
+            'limit' => 1000,
+             // https://www.pivotaltracker.com/help/api/rest/v5#notification_resource for list of possible fields
+            'fields' => null
+        );
+
+        $parameters = array_merge($default_parameters, $parameters);
+
+        return json_decode($this->client->get("/my/notifications", $parameters));
+    }
+
+    /**
+     * Returns notifications for the $person_id passed in.  It will return for dates since the
+     * $since millisecond timstamp passed in.
+     *
+     * @param int $person_id
+     * @param int $since Time in milliseconds since the unix epoch
+     * @param array $parameters
+     * @return stdClass
+     */
+    public function getPersonNotificationsSince($person_id, $since, $parameters = array()) {
+        $default_parameters = array(
+             // https://www.pivotaltracker.com/help/api/rest/v5#Notifications for parameter descriptions
+            'notification_types' => null,
+            'limit' => 1000,
+            'format' => 'millis',
+             // https://www.pivotaltracker.com/help/api/rest/v5#notification_resource for list of possible fields
+            'fields' => null
+        );
+
+        $parameters = array_merge($default_parameters, $parameters);
+
+        return json_decode($this->client->get("/people/{$person_id}/notifications/since/{$since}", $parameters));
+    }
 }
