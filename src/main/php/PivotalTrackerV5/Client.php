@@ -190,17 +190,21 @@ class Client
     }
 
     /**
-     * Returns a list of projects for the currently authenticated user.
+     * Returns an array of projects for the currently authenticated user
      *
-     * @return object
+     * @return array An array of stdClass objects that represent Projects
      */
-    public function getProjects()
-    {
-        return json_decode(
-            $this->client->get(
-                "/projects"
-            )
+    public function getProjects($parameters = array()) {
+        $default_parameters = array(
+            // https://www.pivotaltracker.com/help/api/rest/v5#Projects for parameter descriptions
+           'account_ids' => null,
+            // https://www.pivotaltracker.com/help/api/rest/v5#project_resource for list of possible fields
+           'fields' => null
         );
+        
+        $parameters = array_merge($default_parameters, $parameters);
+        
+        return json_decode($this->client->get("/projects", $parameters));
     }
 
     /**
