@@ -227,6 +227,24 @@ class Client
     }
 
     /**
+     * Returns the details for the project
+     *
+     * @param int $project_id
+     * @param array $parameters
+     * @return stdClass
+     */
+    public function getProject($project_id, $parameters = array()) {
+        $default_parameters = array(
+            // https://www.pivotaltracker.com/help/api/rest/v5#Project for parameter descriptions
+            // https://www.pivotaltracker.com/help/api/rest/v5#project_resource for list of possible fields
+            'fields' => null
+        );
+        
+        $parameters = array_merge($default_parameters, $parameters);
+        return json_decode($this->client->get("/projects/{$project_id}", $parameters));
+    }
+
+    /**
      * Performs a Pivotal Tracker search and returns the raw results
      *
      * @param string $query
